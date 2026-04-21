@@ -200,7 +200,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: server
-          image: kanha05/frontend:latest
+          image: gcr.io/google-samples/microservices-demo/frontend:v0.10.2
           ports:
           - containerPort: 8080
           readinessProbe:
@@ -215,7 +215,7 @@ spec:
             initialDelaySeconds: 10
             httpGet:
               path: "/_healthz"
-              port: 8080
+              port: 80
               httpHeaders:
               - name: "Cookie"
                 value: "shop_session-id=x-liveness-probe"
