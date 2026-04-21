@@ -1,19 +1,33 @@
+
 pipeline {
     agent any
 
     stages {
         stage('Deploy To Kubernetes') {
             steps {
-                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'EKS-1', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', serverUrl: 'https://3B038E5EC8BBFE74265172A90B7220E6.gr7.ap-south-1.eks.amazonaws.com']]) {
+                withKubeCredentials(kubectlCredentials: [[
+                    caCertificate: 'LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJU1lSM3dVRGtBcUV3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TmpBME1qRXdOalF4TXpaYUZ3MHpOakEwTVRnd05qUTJNelphTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUURseGdJeExoUU9FcFpiS1VMOFlCWEQ5eENJYjl1VjFJVGVXYlp5TVM3dFdBcVc0QmNvZkU2V2pWRjUKMDFXcnNReUh1a29yYmN2Tkt0OHgzSVp5azFVZWE5bWphQXB2NUpmaEtTZUIxSWVzSGluaXlOaGVmejBNbTlWZApPeVBhOC94Q1ZIcE5mTXl1MHpMME5tY0hSZktMb2ZpS2tuMWF0MERlUytEbUxJRlJRTWZEbW1jcW96LzUrOEVRCnF2bWtIR214SGhacVFxTlRkbFZXdGVuZk05UjJrSXhiNjRWZ1RlT1F0Y3N6NVNrN0tzcjlVYkczM1kzVHZTamMKZC9YZEpMYnRMM2hOakthSHZnZWJQZ0FMRU9IVTR3WXNhZWxGcWdYRXo2MVBEdUZGV1pKZEIxd05qUWlaUW9kSApSb25VKzhiYnREU3BvQnU0N3psekkyWUwvSkg5QWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJSZHRyOS8rZlAweHJwMEVxZVVCWndvbVZvUjNEQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQzNtR0xCYkFFagptYTNyZmJiZE82WjlhZEhoK0JBWHBFRTNuSmRWSkdGc1RLeVlCWllmNEthb0tFM0RLWEhoZGJRbVBxTVA1dDJ0ClM0cmRTVWUvRXlCQmY5VlJXaDE2OUpKT3QvVHNRZGRmZmt5Z0ZsSlhrbS94MGJWOWkrWlJsZEJnMTFHVnVabHkKcTd6UjMvcXVFM2k0TDNFS1hIRGpwL0QyRnlRbW1KUDZUaVRTbFlEeWo0SncvalU5L3QzUXJPMnRnUFRZZkhtNgpZS1ljcEo2T0xjNmNSbnluTUZJUVdIRWhsMDVocmh4alNtNXNCOGt6MFVFcmdkUjRvclBUS3oxY2xwT3hWMzNkCmt0MDNYemdKTkIxYWViTTZVV1dtVnVmcnZxZVh2azNUSW5mQ3VBMUJqbmNsaWtkRGJ2MXF1bU1GMHFHUHoxTFEKdVpOTVR3MnR4Z05GCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K',
+                    clusterName: 'sydney-cluster-4',
+                    contextName: '',
+                    credentialsId: 'k8-token',
+                    namespace: 'webapps',
+                    serverUrl: 'https://6B2DFEDED4189B33DEB5DDE96F54FF12.gr7.ap-southeast-2.eks.amazonaws.com'
+                ]]) {
                     sh "kubectl apply -f deployment-service.yml"
-                    
                 }
             }
         }
-        
-        stage('verify Deployment') {
+
+        stage('Verify Deployment') {
             steps {
-                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'EKS-1', contextName: '', credentialsId: 'k8-token', namespace: 'webapps', serverUrl: 'https://3B038E5EC8BBFE74265172A90B7220E6.gr7.ap-south-1.eks.amazonaws.com']]) {
+                withKubeCredentials(kubectlCredentials: [[
+                    caCertificate: 'LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJU1lSM3dVRGtBcUV3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TmpBME1qRXdOalF4TXpaYUZ3MHpOakEwTVRnd05qUTJNelphTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUURseGdJeExoUU9FcFpiS1VMOFlCWEQ5eENJYjl1VjFJVGVXYlp5TVM3dFdBcVc0QmNvZkU2V2pWRjUKMDFXcnNReUh1a29yYmN2Tkt0OHgzSVp5azFVZWE5bWphQXB2NUpmaEtTZUIxSWVzSGluaXlOaGVmejBNbTlWZApPeVBhOC94Q1ZIcE5mTXl1MHpMME5tY0hSZktMb2ZpS2tuMWF0MERlUytEbUxJRlJRTWZEbW1jcW96LzUrOEVRCnF2bWtIR214SGhacVFxTlRkbFZXdGVuZk05UjJrSXhiNjRWZ1RlT1F0Y3N6NVNrN0tzcjlVYkczM1kzVHZTamMKZC9YZEpMYnRMM2hOakthSHZnZWJQZ0FMRU9IVTR3WXNhZWxGcWdYRXo2MVBEdUZGV1pKZEIxd05qUWlaUW9kSApSb25VKzhiYnREU3BvQnU0N3psekkyWUwvSkg5QWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJSZHRyOS8rZlAweHJwMEVxZVVCWndvbVZvUjNEQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQzNtR0xCYkFFagptYTNyZmJiZE82WjlhZEhoK0JBWHBFRTNuSmRWSkdGc1RLeVlCWllmNEthb0tFM0RLWEhoZGJRbVBxTVA1dDJ0ClM0cmRTVWUvRXlCQmY5VlJXaDE2OUpKT3QvVHNRZGRmZmt5Z0ZsSlhrbS94MGJWOWkrWlJsZEJnMTFHVnVabHkKcTd6UjMvcXVFM2k0TDNFS1hIRGpwL0QyRnlRbW1KUDZUaVRTbFlEeWo0SncvalU5L3QzUXJPMnRnUFRZZkhtNgpZS1ljcEo2T0xjNmNSbnluTUZJUVdIRWhsMDVocmh4alNtNXNCOGt6MFVFcmdkUjRvclBUS3oxY2xwT3hWMzNkCmt0MDNYemdKTkIxYWViTTZVV1dtVnVmcnZxZVh2azNUSW5mQ3VBMUJqbmNsaWtkRGJ2MXF1bU1GMHFHUHoxTFEKdVpOTVR3MnR4Z05GCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K',
+                    clusterName: 'sydney-cluster-4',
+                    contextName: '',
+                    credentialsId: 'k8-token',
+                    namespace: 'webapps',
+                    serverUrl: 'https://6B2DFEDED4189B33DEB5DDE96F54FF12.gr7.ap-southeast-2.eks.amazonaws.com'
+                ]]) {
                     sh "kubectl get svc -n webapps"
                 }
             }
